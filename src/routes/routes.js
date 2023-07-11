@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
+const { addUser } = require("../controllers/userController");
 
-// GET /check
-router.get("/check", (req, res) => {
-  res.send("Server is running fine!");
-});
+router.use(express.json());
+
+// Add user
+router.post('/user/add-user', addUser);
 
 module.exports = router;
