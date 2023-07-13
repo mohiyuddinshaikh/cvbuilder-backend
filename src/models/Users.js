@@ -14,21 +14,22 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: function () {
-      return !this.socialId;
+      return this.provider == 1;
     },
   },
   contactNumber: {
     type: String,
   },
-  socialId: {
-    type: String,
-  },
   provider: {
     type: Number,
+    required: true,
+    enum: [1,2,3], // 1 - email-password, 2- google, 3 - fb
+  },
+  socialId: {
+    type: String,
     required: function () {
-      return !!this.socialId;
-    },
-    enum: [0, 1],
+      return this.provider == 2 || this.provider == 3
+    }
   },
 });
 
