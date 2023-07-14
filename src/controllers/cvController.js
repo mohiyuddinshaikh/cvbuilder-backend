@@ -63,3 +63,20 @@ exports.createNewCV = async (req, res) => {
       .json({ message: "An error occurred while creating the new CV." });
   }
 };
+
+exports.updateCV = async (req, res) => {
+  const { cvId } = req.params;
+  const updateData = req.body;
+
+  try {
+    const updatedCV = await CV.findByIdAndUpdate(cvId, updateData, {
+      new: true,
+    });
+
+    return res.status(200).json({ cv: updatedCV });
+  } catch (err) {
+    return res
+      .status(500)
+      .json({ message: "An error occurred while updating the CV." });
+  }
+};
